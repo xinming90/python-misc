@@ -4,7 +4,7 @@ import pytest
 
 def test_dict_in():
     class D(dict):
-        id = 10s
+        id = 10
 
     d = D()
     d.id = 10
@@ -40,3 +40,16 @@ def test_dict_clear():
     with pytest.raises(AssertionError):
         assert 'name' in d
 
+
+def test_dict_update():
+    class D(dict):
+        def update(self, **kwds):
+            pass
+
+    d = D()
+    assert d.keys() == []
+    d.update(name='eleme')
+    assert d.keys() == []
+
+    dict.update(d, name='eleme')
+    assert d.items()[0] == ('name', 'eleme')
