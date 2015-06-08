@@ -64,3 +64,14 @@ def test_dict_dict():
     d['name'] = 'eleme'
     d.name = 'eme'
     assert dict(d) == {'name': 'eleme'}
+
+
+def test_dict_get():
+    class D(dict):
+        def get(self, key):
+            return None
+
+    d = D()
+    d['name'] = 'eleme'
+    assert d.get('name') is None
+    assert dict.get(d, 'name') == 'eleme'
