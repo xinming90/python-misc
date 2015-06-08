@@ -48,8 +48,19 @@ def test_dict_update():
 
     d = D()
     assert d.keys() == []
+
     d.update(name='eleme')
     assert d.keys() == []
 
     dict.update(d, name='eleme')
     assert d.items()[0] == ('name', 'eleme')
+
+
+def test_dict_dict():
+    class D(dict):
+        pass
+
+    d = D()
+    d['name'] = 'eleme'
+    d.name = 'eme'
+    assert dict(d) == {'name': 'eleme'}
