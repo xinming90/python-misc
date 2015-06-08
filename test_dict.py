@@ -1,9 +1,11 @@
 # -*- coding: utf-8 -*-
 
-def test_dict_in():    
+import pytest
+
+def test_dict_in():
     class D(dict):
-        id = 10
-    
+        id = 10s
+
     d = D()
     d.id = 10
     assert 'id' not in d
@@ -20,3 +22,21 @@ def test_dict_values():
     d['name'] = 'eleme'
     assert d.values() is False
     assert dict.values(d) == ['eleme']
+
+
+def test_dict_clear():
+    class D(dict):
+        def clear(self):
+            pass
+
+    d = D()
+    d['name'] = 'eleme'
+    assert 'name' in d
+
+    d.clear()
+    assert 'name' in d
+
+    dict.clear(d)
+    with pytest.raises(AssertionError):
+        assert 'name' in d
+
