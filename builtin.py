@@ -13,7 +13,8 @@ def filter(function_or_none, sequence): # known special case of filter
         return [item for item in sequence if item]
     return [item for item in sequence if function_or_none(item)]
 
-def any(iterable): # real signature unknown; restored from __doc__
+
+def any(iterable):
     """
     any(iterable) -> bool
     
@@ -24,3 +25,16 @@ def any(iterable): # real signature unknown; restored from __doc__
         if item:
             return True
     return False
+
+
+def all(iterable):
+    """
+    all(iterable) -> bool
+
+    Return True if bool(x) is True for all values x in the iterable.
+    If the iterable is empty, return True.
+    """
+    for item in iterable:
+        if not item:
+            return False
+    return True

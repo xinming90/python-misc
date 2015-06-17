@@ -13,3 +13,10 @@ def test_filter():
 def test_any():
     assert any([1, 0, 2]) == True
     assert builtin.any([1, 0, 2]) == True
+
+
+def test_all():
+    assert all([1, 0, 2]) == False
+    assert builtin.all([1, 0, 2]) == False
+    assert all([]) == True
+    assert builtin.all([]) == True
