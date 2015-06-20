@@ -38,3 +38,29 @@ def all(iterable):
         if not item:
             return False
     return True
+
+
+def bool(x):
+    """
+    bool(x) -> bool
+
+    Returns True when the argument x is true, False otherwise.
+    The builtins True and False are the only two instances of the class bool.
+    The class bool is a subclass of the class int, and cannot be subclassed.
+    """
+    if x is True:
+        return True
+
+    if x is False:
+        return False
+
+    if x is None:
+        return False
+
+    if hasattr(x, '__nonzero__'):
+        return x.__nonzero__()
+
+    if hasattr(x, '__len__'):
+        return x.__len__()
+
+    return True
