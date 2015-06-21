@@ -50,5 +50,6 @@ def test_bool():
     # nonzero win
     C = type('C', (object,), {'__nonzero__': lambda self: False,
                               '__len__': lambda self: True})
-    assert bool(C()) is False
-    assert builtin.bool(C()) is False
+    c = C()
+    assert bool(c) is False
+    assert builtin.bool(c) is False
