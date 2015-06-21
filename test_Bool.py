@@ -20,3 +20,7 @@ def test_Bool():
                               '__len__': lambda self: True})
     assert Bool.Bool(C()) is Bool.false
 
+    assert str(Bool.Bool(0)) == 'false'
+    assert str(Bool.Bool(1)) == 'true'
+    assert repr(Bool.Bool(0)) == 'false'
+    assert repr(Bool.Bool(1)) == 'true'

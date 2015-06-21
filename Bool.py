@@ -33,3 +33,10 @@ class Bool(int):
 
         return true
 
+
+    def __str__(self):
+        if self.real == 1:
+            return 'true'
+        return 'false'
+
+    __repr__ = __str__
