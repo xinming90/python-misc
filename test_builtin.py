@@ -25,10 +25,10 @@ def test_all():
 def test_bool():
     assert bool(True) is True
     assert builtin.bool(True) is True
-    
+
     assert bool(False) is False
     assert builtin.bool(False) is False
-    
+
     assert bool(None) is False
     assert builtin.bool(None) is False
 
@@ -36,7 +36,7 @@ def test_bool():
     c = C()
     assert bool(c) is True
     assert builtin.bool(c) is True
-    
+
     C = type('C', (object,), {'__nonzero__': lambda self: False})
     c = C()
     assert bool(c) is False
@@ -46,7 +46,7 @@ def test_bool():
     c = C()
     assert bool(c) is False
     assert builtin.bool(c) is False
-    
+
     # nonzero win
     C = type('C', (object,), {'__nonzero__': lambda self: False,
                               '__len__': lambda self: True})
