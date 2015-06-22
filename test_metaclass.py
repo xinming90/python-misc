@@ -10,8 +10,6 @@ def test_class_eq():
         def __eq__(cls, other):
             raise NotImplementedError
 
-    class C(object):
-        __metaclass__ = MetaClass
-
+    C = MetaClass('C', (object,), {})
     with pytest.raises(NotImplementedError):
         C == 1
