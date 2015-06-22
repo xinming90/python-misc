@@ -2,6 +2,7 @@
 
 import builtin
 
+
 def test_filter():
     assert filter(None, [1, 0, 2]) == [1, 2]
     assert builtin.filter(None, [1, 0, 2]) == [1, 2]
@@ -53,3 +54,18 @@ def test_bool():
     c = C()
     assert bool(c) is False
     assert builtin.bool(c) is False
+
+
+def test_getitem():
+    class C(object):
+        def __getitem__(self, i):
+            start = i.start
+            stop = i.stop
+            if start in (None, 0):
+                return 'LIMIT {}'.format(stop)
+            return 'LIMIT {}, {}'.format(start, stop - start)
+
+    c = C()
+    assert c[:3] == 'LIMIT 3'
+    assert c[0:3] == 'LIMIT 3'
+    assert c[1:3] == 'LIMIT 1, 2'
