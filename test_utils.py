@@ -9,8 +9,9 @@ def test_filter_dict():
     }
 
     def f(k, v):
-        if k.startswith('_'):
-            return False
-        return True
+        return not k.startswith('_')
 
+    assert filter_dict(f, d) == {'name': 'eleme'}
+
+    f = lambda k, v: not k.startswith('_')
     assert filter_dict(f, d) == {'name': 'eleme'}
