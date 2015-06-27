@@ -54,6 +54,22 @@ def hasattr(object, name):
         return False
 
 
+def getattr(object, name, *default):
+    """
+    getattr(object, name[, default]) -> value
+
+    Get a named attribute from an object; getattr(x, 'y') is equivalent to x.y.
+    When a default argument is given, it is returned when the attribute doesn't
+    exist; without it, an exception is raised in that case.
+    """
+    try:
+        return object.__getattribute__(name)
+    except AttributeError:
+        if len(default) == 1:
+            return default[0]
+        raise
+
+
 class bool(int):
     """
     bool(x) -> bool

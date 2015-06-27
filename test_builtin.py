@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 
+import pytest
 import builtin
 
 
@@ -63,6 +64,20 @@ def test_hasattr():
     assert hasattr(c, 'tname') is False
     assert builtin.hasattr(c, 'name') is True
     assert builtin.hasattr(c, 'tname') is False
+
+
+def test_getattr():
+    C = type('C', (object,), {'name': 'C'})
+    c = C()
+    assert getattr(c, 'name') == 'C'
+    with pytest.raises(AttributeError):
+        getattr(c, 'tname')
+    assert getattr(c, 'tname', 'default') == 'default'
+
+    assert builtin.getattr(c, 'name') == 'C'
+    with pytest.raises(AttributeError):
+        builtin.getattr(c, 'tname')
+    assert builtin.getattr(c, 'tname', 'default') == 'default'
 
 
 def test_getitem():
