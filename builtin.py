@@ -40,6 +40,20 @@ def all(iterable):
     return True
 
 
+def hasattr(object, name):
+    """
+    hasattr(object, name) -> bool
+
+    Return whether the object has an attribute with the given name.
+    (This is done by calling getattr(object, name) and catching exceptions.)
+    """
+    try:
+        object.__getattribute__(name)
+        return True
+    except AttributeError:
+        return False
+
+
 class bool(int):
     """
     bool(x) -> bool

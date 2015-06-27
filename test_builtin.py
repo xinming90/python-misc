@@ -56,6 +56,15 @@ def test_bool():
     assert builtin.bool(c) is False
 
 
+def test_hasattr():
+    C = type('C', (object,), {'name': 'C'})
+    c = C()
+    assert hasattr(c, 'name') is True
+    assert hasattr(c, 'tname') is False
+    assert builtin.hasattr(c, 'name') is True
+    assert builtin.hasattr(c, 'tname') is False
+
+
 def test_getitem():
     class C(object):
         def __getitem__(self, i):
