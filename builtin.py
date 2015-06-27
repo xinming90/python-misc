@@ -70,6 +70,16 @@ def getattr(object, name, *default):
         raise
 
 
+def setattr(object, name, value):
+    """
+    setattr(object, name, value)
+    
+    Set a named attribute on an object; setattr(x, 'y', v) is equivalent to
+    ``x.y = v''.
+    """
+    object.__setattr__(name, value)
+
+
 class bool(int):
     """
     bool(x) -> bool

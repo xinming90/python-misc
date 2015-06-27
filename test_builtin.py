@@ -80,6 +80,18 @@ def test_getattr():
     assert builtin.getattr(c, 'tname', 'default') == 'default'
 
 
+def test_setattr():
+    c = type('C', (object,), {})()
+    assert hasattr(c, 'name') is False
+    setattr(c, 'name', None)
+    assert hasattr(c, 'name') is True
+
+    c = type('C', (object,), {})()
+    assert hasattr(c, 'name') is False
+    builtin.setattr(c, 'name', None)
+    assert hasattr(c, 'name') is True
+    
+
 def test_getitem():
     class C(object):
         def __getitem__(self, i):
