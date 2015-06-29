@@ -73,7 +73,7 @@ def getattr(object, name, *default):
 def setattr(object, name, value):
     """
     setattr(object, name, value)
-    
+
     Set a named attribute on an object; setattr(x, 'y', v) is equivalent to
     ``x.y = v''.
     """
@@ -105,3 +105,37 @@ class bool(int):
             return x.__len__()
 
         return True
+
+
+class staticmethod(object):
+    """
+    staticmethod(function) -> method
+
+    Convert a function to be a static method.
+
+    A static method does not receive an implicit first argument.
+    To declare a static method, use this idiom:
+
+         class C:
+         def f(arg1, arg2, ...): ...
+         f = staticmethod(f)
+
+    It can be called either on the class (e.g. C.f()) or on an instance
+    (e.g. C().f()).  The instance is ignored except for its class.
+
+    Static methods in Python are similar to those found in Java or C++.
+    For a more advanced concept, see the classmethod builtin.
+    """
+    def __init__(self, function):
+        self.function = function
+
+    def __get__(self, obj, type=None):
+        return self.function
+
+""" implement
+def staticmethod(function):
+    class C(object):
+        def __get__(self, obj, type=None):
+            return function
+    return C()
+"""

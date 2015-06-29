@@ -90,7 +90,7 @@ def test_setattr():
     assert hasattr(c, 'name') is False
     builtin.setattr(c, 'name', None)
     assert hasattr(c, 'name') is True
-    
+
 
 def test_getitem():
     class C(object):
@@ -105,3 +105,20 @@ def test_getitem():
     assert c[:3] == 'LIMIT 3'
     assert c[0:3] == 'LIMIT 3'
     assert c[1:3] == 'LIMIT 1, 2'
+
+
+def test_staticmethod():
+    class C(object):
+        @staticmethod
+        def f():
+            return 'f'
+
+    assert C.f() == 'f'
+    assert C().f() == 'f'
+
+    class C(object):
+        @builtin.staticmethod
+        def f():
+            return 'f'
+    assert C.f() == 'f'
+    assert C().f() == 'f'
