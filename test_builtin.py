@@ -122,3 +122,22 @@ def test_staticmethod():
             return 'f'
     assert C.f() == 'f'
     assert C().f() == 'f'
+
+
+
+def test_classmethod():
+    class C(object):
+        n = 10
+        @classmethod
+        def f(cls):
+            return cls.n
+    assert C.f() == 10
+    assert C().f() == 10
+
+    class C(object):
+        n = 10
+        @builtin.classmethod
+        def f(cls):
+            return cls.n
+    assert C.f() == 10
+    assert C().f() == 10
