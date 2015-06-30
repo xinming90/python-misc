@@ -209,13 +209,11 @@ class property(object):
         def x(self):
             del self._x
     """
-    def __init__(self, *args):
-        assert len(args) in [1, 4]
-        self.fget = args[0]
-        if len(args) == 4:
-            self.fset = args[1]
-            self.fdel = args[2]
-            self.doc = args[3]
+    def __init__(self, fget=None, fset=None, fdel=None, doc=None):
+        self.fget = fget
+        self.fset = fset
+        self.fdel = fdel
+        self.doc = doc
 
     def setter(self, fset):
         """Descriptor to change the setter on a property."""
