@@ -180,3 +180,47 @@ def test_property():
     del c.x
     with pytest.raises(AttributeError):
         c.x
+
+
+def test_property_decorator():
+    class C(object):
+        @property
+        def x(self):
+            return 'x = {}'.format(self._x)
+
+        # import IPython; IPython.embed()
+        @x.setter
+        def x(self, value):
+            self._x = value
+
+        @x.deleter
+        def x(self):
+            del self._x
+
+    c = C()
+    c.x = 10
+    assert c.x == 'x = 10'
+    del c.x
+    with pytest.raises(AttributeError):
+        c.x
+
+
+    class C(object):
+        @builtin.property
+        def x(self):
+            return 'x = {}'.format(self._x)
+
+        @x.setter
+        def x(self, value):
+            self._x = value
+
+        @x.deleter
+        def x(self):
+            del self._x
+
+    c = C()
+    c.x = 10
+    assert c.x == 'x = 10'
+    del c.x
+    with pytest.raises(AttributeError):
+        c.x
