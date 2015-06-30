@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 
+import pytest
 import builtin
 
 
@@ -56,6 +57,41 @@ def test_bool():
     assert builtin.bool(c) is False
 
 
+def test_hasattr():
+    C = type('C', (object,), {'name': 'C'})
+    c = C()
+    assert hasattr(c, 'name') is True
+    assert hasattr(c, 'tname') is False
+    assert builtin.hasattr(c, 'name') is True
+    assert builtin.hasattr(c, 'tname') is False
+
+
+def test_getattr():
+    C = type('C', (object,), {'name': 'C'})
+    c = C()
+    assert getattr(c, 'name') == 'C'
+    with pytest.raises(AttributeError):
+        getattr(c, 'tname')
+    assert getattr(c, 'tname', 'default') == 'default'
+
+    assert builtin.getattr(c, 'name') == 'C'
+    with pytest.raises(AttributeError):
+        builtin.getattr(c, 'tname')
+    assert builtin.getattr(c, 'tname', 'default') == 'default'
+
+
+def test_setattr():
+    c = type('C', (object,), {})()
+    assert hasattr(c, 'name') is False
+    setattr(c, 'name', None)
+    assert hasattr(c, 'name') is True
+
+    c = type('C', (object,), {})()
+    assert hasattr(c, 'name') is False
+    builtin.setattr(c, 'name', None)
+    assert hasattr(c, 'name') is True
+
+
 def test_getitem():
     class C(object):
         def __getitem__(self, i):
@@ -69,3 +105,39 @@ def test_getitem():
     assert c[:3] == 'LIMIT 3'
     assert c[0:3] == 'LIMIT 3'
     assert c[1:3] == 'LIMIT 1, 2'
+
+
+def test_staticmethod():
+    class C(object):
+        @staticmethod
+        def f():
+            return 'f'
+
+    assert C.f() == 'f'
+    assert C().f() == 'f'
+
+    class C(object):
+        @builtin.staticmethod
+        def f():
+            return 'f'
+    assert C.f() == 'f'
+    assert C().f() == 'f'
+
+
+
+def test_classmethod():
+    class C(object):
+        n = 10
+        @classmethod
+        def f(cls):
+            return cls.n
+    assert C.f() == 10
+    assert C().f() == 10
+
+    class C(object):
+        n = 10
+        @builtin.classmethod
+        def f(cls):
+            return cls.n
+    assert C.f() == 10
+    assert C().f() == 10
