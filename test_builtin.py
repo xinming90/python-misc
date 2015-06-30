@@ -141,3 +141,42 @@ def test_classmethod():
             return cls.n
     assert C.f() == 10
     assert C().f() == 10
+
+
+def test_property():
+    class C(object):
+        def getx(self):
+            return 'x = {}'.format(self._x)
+
+        def setx(self, value):
+            self._x = value
+
+        def delx(self):
+            del self._x
+        x = property(getx, setx, delx, "I'm the 'x' property.")
+
+    c = C()
+    c.x = 10
+    assert c.x == 'x = 10'
+    del c.x
+    with pytest.raises(AttributeError):
+        c.x
+
+
+    class C(object):
+        def getx(self):
+            return 'x = {}'.format(self._x)
+
+        def setx(self, value):
+            self._x = value
+
+        def delx(self):
+            del self._x
+        x = builtin.property(getx, setx, delx, "I'm the 'x' property.")
+
+    c = C()
+    c.x = 10
+    assert c.x == 'x = 10'
+    del c.x
+    with pytest.raises(AttributeError):
+        c.x
