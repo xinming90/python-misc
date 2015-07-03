@@ -179,3 +179,57 @@ def classmethod(function):
             return functools.partial(function, type)
     return C()
 """
+
+
+class property(object):
+    """
+    property(fget=None, fset=None, fdel=None, doc=None) -> property attribute
+
+    fget is a function to be used for getting an attribute value, and likewise
+    fset is a function for setting, and fdel a function for del'ing, an
+    attribute.  Typical use is to define a managed attribute x:
+
+    class C(object):
+        def getx(self): return self._x
+        def setx(self, value): self._x = value
+        def delx(self): del self._x
+        x = property(getx, setx, delx, "I'm the 'x' property.")
+
+    Decorators make defining new properties or modifying existing ones easy:
+
+    class C(object):
+        @property
+        def x(self):
+            "I am the 'x' property."
+            return self._x
+        @x.setter
+        def x(self, value):
+            self._x = value
+        @x.deleter
+        def x(self):
+            del self._x
+    """
+    def __init__(self, fget=None, fset=None, fdel=None, doc=None):
+        self.fget = fget
+        self.fset = fset
+        self.fdel = fdel
+        self.doc = doc
+
+    def setter(self, fset):
+        """Descriptor to change the setter on a property."""
+        self.fset = fset
+        return self
+
+    def deleter(self, fget):
+        "Descriptor to change the deleter on a property."
+        self.fdel = fget
+        return self
+
+    def __set__(self, obj, value):
+        return self.fset(obj, value)
+
+    def __get__(self, obj, type=None):
+        return self.fget(obj)
+
+    def __delete__(self, obj):
+        return self.fdel(obj)
