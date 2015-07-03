@@ -1,10 +1,9 @@
-DOCKER = docker --tlsverify=false
+all: clean test
 
 test:
 	find __pycache__ -type f | xargs rm -f
-	$(DOCKER) run -it --rm -v $(shell pwd):/python-misc python-misc
+	gcc -shared -I/usr/include/python2.7 hellomodule.c -o hello.so
+	py.test -sv
 
-build:
-	$(DOCKER) build -t python-misc .
-
-all: build test
+clean:
+	rm -f *.so *.o
