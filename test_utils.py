@@ -1,6 +1,9 @@
 # -*- coding: utf-8 -*-
 
-from utils import filter_dict
+from utils import (
+    filter_dict,
+    isiterator,
+)
 
 def test_filter_dict():
     d = {
@@ -15,3 +18,9 @@ def test_filter_dict():
 
     f = lambda k, v: not k.startswith('_')
     assert filter_dict(f, d) == {'name': 'eleme'}
+
+
+def test_isiterator():
+    assert isiterator([])
+    assert isiterator({})
+    assert isiterator(None) is False
