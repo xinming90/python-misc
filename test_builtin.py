@@ -224,3 +224,20 @@ def test_property_decorator():
     del c.x
     with pytest.raises(AttributeError):
         c.x
+
+
+def test_callable():
+    def f(): pass
+    assert callable(len) is True
+    assert callable("a") is False
+    assert callable(callable) is True
+    assert callable(lambda x, y: x + y) is True
+    assert callable(__builtins__) is False
+    assert callable(f) is True
+
+    assert builtin.callable(len) is True
+    assert builtin.callable("a") is False
+    assert builtin.callable(callable) is True
+    assert builtin.callable(lambda x, y: x + y) is True
+    assert builtin.callable(__builtins__) is False
+    assert builtin.callable(f) is True

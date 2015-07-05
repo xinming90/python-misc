@@ -233,3 +233,13 @@ class property(object):
 
     def __delete__(self, obj):
         return self.fdel(obj)
+
+
+def callable(object):
+    """
+    callable(object) -> bool
+
+    Return whether the object is callable (i.e., some kind of function).
+    Note that classes are callable, as are instances with a __call__() method.
+    """
+    return hasattr(object, '__call__')
