@@ -3,6 +3,8 @@
 import utils
 import _utils
 
+import pytest
+
 def test_filter_dict():
     d = {
         'name': 'eleme',
@@ -26,3 +28,12 @@ def test_isiterator():
     assert _utils.isiterator([]) is True
     assert _utils.isiterator({}) is True
     assert _utils.isiterator(None) is False
+
+
+def test_hashable():
+    assert utils.hashable(1) is True
+    assert utils.hashable('str') is True
+    assert utils.hashable(u'unicode') is True
+    assert utils.hashable([]) is False
+    assert utils.hashable(set()) is False
+    assert utils.hashable({}) is False

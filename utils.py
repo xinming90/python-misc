@@ -6,3 +6,7 @@ def filter_dict(f, d):
 
 def isiterator(it):
     return hasattr(it, '__iter__')
+
+
+def hashable(object):
+    return bool(getattr(object, '__hash__'))
