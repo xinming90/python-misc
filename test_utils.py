@@ -37,3 +37,10 @@ def test_hashable():
     assert utils.hashable([]) is False
     assert utils.hashable(set()) is False
     assert utils.hashable({}) is False
+
+    assert _utils.hashable(1) is True
+    assert _utils.hashable('str') is True
+    assert _utils.hashable(u'unicode') is True
+    assert _utils.hashable([]) is False
+    assert _utils.hashable(set()) is False
+    assert _utils.hashable({}) is False

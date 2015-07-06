@@ -1,14 +1,30 @@
 #include "Python.h"
 
 static PyObject *
-isiterator(PyObject *self, PyObject *v) {
+isiterator(PyObject *self, PyObject *v)
+{
     if (v->ob_type->tp_iter == NULL)
         return Py_False;
     return Py_True;
 }
 
+
+static PyObject *
+hashable(PyObject *self, PyObject *v)
+{
+    hashfunc tp_hash = v->ob_type->tp_hash;
+    if (tp_hash == NULL)
+        return Py_False;
+    // list->tp_hash = PyObject_HashNotImplemented
+    if (tp_hash == PyObject_HashNotImplemented)
+        return Py_False;
+    return Py_True;
+}
+
+
 static PyMethodDef module_methods[] = {
     {"isiterator", isiterator, METH_O, "isiterator's doc"},
+    {"hashable", hashable, METH_O, "hashable's doc"},
     {NULL, NULL, 0, NULL}
 };
 
