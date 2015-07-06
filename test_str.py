@@ -18,3 +18,10 @@ def test_str_join():
     s = String(' ')
     assert s.join(['a', 'b']) == 'a b'
     assert s.join('a', 'b') == 'a b'
+
+
+def test_str_split():
+    assert 'xx.yyyy.zzz'.split('.') == ['xx', 'yyyy', 'zzz']
+    assert 'xx.yyyy.zzz'.split('.', 0) == ['xx.yyyy.zzz']
+    assert 'xx.yyyy.zzz'.split('.', 1) == ['xx', 'yyyy.zzz']
+    assert 'xx.yyyy.zzz'.split('.', 2) == ['xx', 'yyyy', 'zzz']
