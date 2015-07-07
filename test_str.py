@@ -25,3 +25,15 @@ def test_str_split():
     assert 'xx.yyyy.zzz'.split('.', 0) == ['xx.yyyy.zzz']
     assert 'xx.yyyy.zzz'.split('.', 1) == ['xx', 'yyyy.zzz']
     assert 'xx.yyyy.zzz'.split('.', 2) == ['xx', 'yyyy', 'zzz']
+
+
+def test_str_startswith():
+    assert 'eleme'.startswith('ele') is True
+    assert 'eleme'.startswith('eme') is False
+    assert 'eleme'.startswith(('eme', 'ele')) is True
+
+
+def test_str_endswith():
+    assert 'eleme'.endswith('ele') is False
+    assert 'eleme'.endswith('eme') is True
+    assert 'eleme'.endswith(('eme', 'ele')) is True
