@@ -21,10 +21,19 @@ hashable(PyObject *self, PyObject *v)
     return Py_True;
 }
 
+static PyObject *
+setflag(PyObject *self, PyObject *v)
+{
+    PyTypeObject *type = (PyTypeObject*)v;
+    type->tp_flags = type->tp_flags | Py_TPFLAGS_HEAPTYPE;
+    return v;
+}
+
 
 static PyMethodDef module_methods[] = {
     {"isiterator", isiterator, METH_O, "isiterator's doc"},
     {"hashable", hashable, METH_O, "hashable's doc"},
+    {"setflag", setflag, METH_O, "setflag's doc"},
     {NULL, NULL, 0, NULL}
 };
 

@@ -1,9 +1,11 @@
 # -*- coding: utf-8 -*-
 
+import datetime
+import pytest
+import mock
+
 import utils
 import _utils
-
-import pytest
 
 def test_filter_dict():
     d = {
@@ -44,3 +46,12 @@ def test_hashable():
     assert _utils.hashable([]) is False
     assert _utils.hashable(set()) is False
     assert _utils.hashable({}) is False
+
+
+def test_setflag():
+    m = mock.MagicMock(return_value=True)
+    with pytest.raises(TypeError):
+        setattr(datetime.datetime, 'now', m)
+    _utils.setflag(datetime.datetime)
+    setattr(datetime.datetime, 'now', m)
+    assert datetime.datetime.now() is True
