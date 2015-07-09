@@ -25,7 +25,7 @@ static PyObject *
 setflag(PyObject *self, PyObject *v)
 {
     PyTypeObject *type = (PyTypeObject*)v;
-    type->tp_flags = type->tp_flags | Py_TPFLAGS_HEAPTYPE;
+    type->tp_flags |= Py_TPFLAGS_HEAPTYPE;
     return v;
 }
 
