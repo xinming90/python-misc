@@ -1,5 +1,8 @@
 all: clean test
 
+build:
+	pip install pytest-raisesregexp
+
 test:
 	find __pycache__ -type f | xargs rm -f
 	gcc -fPIC -shared -I/usr/include/python2.7 hellomodule.c -o hello.so
