@@ -3,7 +3,7 @@
 import unittest
 import inspect
 
-def test_unittest_raise():
+def test_unittest_raises():
     def f():
         raise ValueError('f')
 
