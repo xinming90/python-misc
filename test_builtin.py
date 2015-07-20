@@ -241,3 +241,17 @@ def test_callable():
     assert builtin.callable(lambda x, y: x + y) is True
     assert builtin.callable(__builtins__) is False
     assert builtin.callable(f) is True
+
+
+def test_assert():
+    with pytest.raises(AssertionError) as e:
+        assert False
+    assert e.value.msg == 'assert False'
+
+    with pytest.raises(AssertionError) as e:
+        assert False, 'I am assert'
+    assert e.value.msg == 'I am assert\nassert False'
+
+    with pytest.raises(AssertionError) as e:
+        assert False, ValueError('I am assert')
+    assert e.value.msg == "ValueError('I am assert',)\nassert False"
