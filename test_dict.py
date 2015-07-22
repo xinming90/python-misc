@@ -75,3 +75,18 @@ def test_dict_get():
     d['name'] = 'eleme'
     assert d.get('name') is None
     assert dict.get(d, 'name') == 'eleme'
+
+
+def test_dict_getitem():
+    d = {}
+    d['k'] = {}.get('k')
+    assert d == {'k': None}
+
+    class D(dict):
+        def __setitem__(self, key, value):
+            if value:
+                dict.__setitem__(self, key, value)
+
+    d = D()
+    d['k'] = {}.get('k')
+    assert d == {}
