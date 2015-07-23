@@ -60,3 +60,7 @@ def test_setflag():
 def test__assert():
     with pytest.raises(AssertionError):
         utils._assert(1 == 0)
+
+    with pytest.raises(ValueError) as e:
+        utils._assert(1 == 0, ValueError('py'))
+    assert e.value.message == 'py'

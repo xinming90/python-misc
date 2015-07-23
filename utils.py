@@ -12,6 +12,6 @@ def hashable(object):
     return bool(getattr(object, '__hash__'))
 
 
-def _assert(object):
+def _assert(object, exc=AssertionError):
     if not object:
-        raise AssertionError
+        raise exc
