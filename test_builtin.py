@@ -188,7 +188,6 @@ def test_property_decorator():
         def x(self):
             return 'x = {}'.format(self._x)
 
-        # import IPython; IPython.embed()
         @x.setter
         def x(self, value):
             self._x = value

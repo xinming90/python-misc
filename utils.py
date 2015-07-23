@@ -10,3 +10,8 @@ def isiterator(it):
 
 def hashable(object):
     return bool(getattr(object, '__hash__'))
+
+
+def _assert(object):
+    if not object:
+        raise AssertionError

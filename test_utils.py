@@ -55,3 +55,8 @@ def test_setflag():
     _utils.setflag(datetime.datetime)
     setattr(datetime.datetime, 'now', m)
     assert datetime.datetime.now() is True
+
+
+def test__assert():
+    with pytest.raises(AssertionError):
+        utils._assert(1 == 0)
