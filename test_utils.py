@@ -68,3 +68,7 @@ def test__assert():
     _utils._assert(1 == 1)
     with pytest.raises(AssertionError):
         _utils._assert(1 == 0)
+
+    with pytest.raises(ValueError) as e:
+        _utils._assert(1 == 0, ValueError('py'))
+    assert e.value.message == 'py'

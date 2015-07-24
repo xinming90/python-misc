@@ -31,13 +31,19 @@ setflag(PyObject *self, PyObject *v)
 }
 
 
-// TODO support custom exc
 static PyObject *
-_assert(PyObject *self, PyObject *v)
+_assert(PyObject *self, PyObject *args)
 {
-    if (PyObject_IsTrue(v))
-        return v;
-    PyErr_SetNone(PyExc_AssertionError);
+    PyObject *ob;
+    PyObject *exc = PyExc_AssertionError;
+    if (!PyArg_ParseTuple(args, "O|O", &ob, &exc))
+        return NULL;
+    if (PyObject_IsTrue(ob))
+        return Py_True;
+    if (PyExceptionClass_Check(exc))
+        PyErr_SetNone(exc);
+    else if (PyExceptionInstance_Check(exc))
+        PyErr_SetObject(PyExceptionInstance_Class(exc), exc);
     return NULL;
 }
 
@@ -46,7 +52,7 @@ static PyMethodDef module_methods[] = {
     {"isiterator", isiterator, METH_O, "isiterator's doc"},
     {"hashable", hashable, METH_O, "hashable's doc"},
     {"setflag", setflag, METH_O, "setflag's doc"},
-    {"_assert", _assert, METH_O, "_assert's doc"},
+    {"_assert", _assert, METH_VARARGS, "_assert's doc"},
     {NULL, NULL, 0, NULL}
 };
 
