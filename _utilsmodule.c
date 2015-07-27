@@ -1,6 +1,9 @@
 #include "Python.h"
 #include "_utilsmodule.h"
 
+#define GEN_NEXT(gen) Py_TYPE(gen)->tp_iternext(gen)
+
+
 static PyObject *
 isiterator(PyObject *self, PyObject *v)
 {
@@ -31,6 +34,22 @@ ilen(PyObject *self, PyObject *v)
     }
     PyErr_SetNone(PyExc_NotImplementedError);
     return NULL;
+}
+
+
+static PyObject *
+glen(PyObject *self, PyObject *v)
+{
+    if (!PyGen_CheckExact(v)) {
+        PyErr_SetNone(PyExc_NotImplementedError);
+        return NULL;
+    }
+    int i = 0;
+    PyGenObject *gen = v;
+    while (GEN_NEXT(gen) != NULL) {
+        i++;
+    }
+    return PyInt_FromLong(i);
 }
 
 
@@ -76,6 +95,7 @@ _assert(PyObject *self, PyObject *args)
 static PyMethodDef module_methods[] = {
     {"isiterator", isiterator, METH_O, "isiterator's doc"},
     {"ilen", ilen, METH_O, "ilen's doc"},
+    {"glen", glen, METH_O, "glen's doc"},
     {"hashable", hashable, METH_O, "hashable's doc"},
     {"setflag", setflag, METH_O, "setflag's doc"},
     {"_assert", _assert, METH_VARARGS, "_assert's doc"},

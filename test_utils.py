@@ -83,3 +83,4 @@ def test_ilen():
 
 def test_glen():
     assert utils.glen(i for i in [3, 9, 2]) == 3
+    assert _utils.glen(i for i in [3, 9, 2]) == 3
