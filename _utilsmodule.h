@@ -1,3 +1,5 @@
+/*********************** List Iterator **************************/
+
 typedef struct {
     PyObject_HEAD
     long it_index;
@@ -41,3 +43,21 @@ PyTypeObject PyListIter_Type = {
 
 
 #define PyListIter_CheckExact(op) (Py_TYPE(op) == &PyListIter_Type)
+
+
+
+
+
+/* Dictionary iterator types */
+
+typedef struct {
+    PyObject_HEAD
+    PyDictObject *di_dict; /* Set to NULL when iterator is exhausted */
+    Py_ssize_t di_used;
+    Py_ssize_t di_pos;
+    PyObject* di_result; /* reusable result tuple for iteritems */
+    Py_ssize_t len;
+} dictiterobject;
+
+
+#define PyDictIterKey_CheckExact(op) (Py_TYPE(op) == &PyDictIterKey_Type)

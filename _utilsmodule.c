@@ -14,8 +14,12 @@ static PyObject *
 ilen(PyObject *self, PyObject *v)
 {
     if (PyListIter_CheckExact(v)) {
-        listiterobject *v = (listiterobject *)v;
-        return PyInt_FromLong(Py_SIZE(v->it_seq));
+        listiterobject *l = (listiterobject *)v;
+        return PyInt_FromLong(Py_SIZE(l->it_seq));
+    }
+    if (PyDictIterKey_CheckExact(v)) {
+        dictiterobject *d = (dictiterobject *)v;
+        return PyInt_FromLong(PyDict_Size(d->di_dict));
     }
     PyErr_SetNone(PyExc_NotImplementedError);
     return NULL;
