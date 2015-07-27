@@ -15,3 +15,14 @@ def hashable(object):
 def _assert(object, exc=AssertionError):
     if not object:
         raise exc
+
+
+def glen(gen):
+    count = 0
+    while True:
+        try:
+            gen.next()
+        except StopIteration:
+            break
+        count += 1
+    return count
