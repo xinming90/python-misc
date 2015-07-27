@@ -1,3 +1,14 @@
+/* Iterator objects */
+
+typedef struct {
+    PyObject_HEAD
+    long      it_index;
+    PyObject *it_seq; /* Set to NULL when iterator is exhausted */
+} seqiterobject;
+
+
+
+
 /*********************** List Iterator **************************/
 
 typedef struct {

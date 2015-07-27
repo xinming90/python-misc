@@ -13,8 +13,12 @@ isiterator(PyObject *self, PyObject *v)
 static PyObject *
 ilen(PyObject *self, PyObject *v)
 {
+    if (PySeqIter_Check(v)) {
+        seqiterobject *it = (seqiterobject *) v;
+        return PyInt_FromLong(PySequence_Size(it->it_seq));
+    }
     if (PyListIter_CheckExact(v)) {
-        listiterobject *it = (listiterobject *)v;
+        listiterobject *it = (listiterobject *) v;
         return PyInt_FromLong(Py_SIZE(it->it_seq));
     }
     if (PyTupleIter_CheckExact(v)) {
@@ -22,7 +26,7 @@ ilen(PyObject *self, PyObject *v)
         return PyInt_FromLong(Py_SIZE(it->it_seq));
     }
     if (PyDictIterKey_CheckExact(v)) {
-        dictiterobject *it = (dictiterobject *)v;
+        dictiterobject *it = (dictiterobject *) v;
         return PyInt_FromLong(PyDict_Size(it->di_dict));
     }
     PyErr_SetNone(PyExc_NotImplementedError);
