@@ -90,3 +90,12 @@ def test_dict_getitem():
     d = D()
     d['k'] = {}.get('k')
     assert d == {}
+
+
+def test_dict_iterator_length_hint():
+    it = iter({'k': 'v', 'name': 'eleme'})
+    assert it.__length_hint__() == 2
+    it.next()
+    assert it.__length_hint__() == 1
+    it.next()
+    assert it.__length_hint__() == 0
