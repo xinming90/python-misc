@@ -1,4 +1,5 @@
 #include "Python.h"
+#include "_utilsmodule.h"
 
 static PyObject *
 isiterator(PyObject *self, PyObject *v)
@@ -6,6 +7,17 @@ isiterator(PyObject *self, PyObject *v)
     if (v->ob_type->tp_iter == NULL)
         return Py_False;
     return Py_True;
+}
+
+
+static PyObject *
+ilen(PyObject *self, PyObject *v)
+{
+    if (PyListIter_CheckExact(v)) {
+        listiterobject *v = (listiterobject *)v;
+        return PyInt_FromLong(Py_SIZE(v->it_seq));
+    }
+    return v;
 }
 
 
@@ -50,6 +62,7 @@ _assert(PyObject *self, PyObject *args)
 
 static PyMethodDef module_methods[] = {
     {"isiterator", isiterator, METH_O, "isiterator's doc"},
+    {"ilen", ilen, METH_O, "ilen's doc"},
     {"hashable", hashable, METH_O, "hashable's doc"},
     {"setflag", setflag, METH_O, "setflag's doc"},
     {"_assert", _assert, METH_VARARGS, "_assert's doc"},

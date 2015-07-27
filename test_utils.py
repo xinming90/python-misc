@@ -72,3 +72,7 @@ def test__assert():
     with pytest.raises(ValueError) as e:
         _utils._assert(1 == 0, ValueError('py'))
     assert e.value.message == 'py'
+
+
+def test_iter_len():
+    assert _utils.ilen(iter([1, 2, 3])) == 3
