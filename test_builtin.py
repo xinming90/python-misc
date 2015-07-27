@@ -254,3 +254,10 @@ def test_assert():
     with pytest.raises(AssertionError) as e:
         assert False, ValueError('I am assert')
     assert e.value.msg == "ValueError('I am assert',)\nassert False"
+
+
+def test_bytearray():
+    import socket
+    ip = socket.inet_aton('127.0.0.1')
+    assert bytearray(ip)[0] == 127
+    assert ord(ip[0]) == 127
