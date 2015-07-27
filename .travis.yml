@@ -1,3 +1,9 @@
+os:
+  - linux
+
+env:
+  - ARCH="i686"
+
 language: python
 
 python:
