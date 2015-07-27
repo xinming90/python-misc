@@ -17,7 +17,8 @@ ilen(PyObject *self, PyObject *v)
         listiterobject *v = (listiterobject *)v;
         return PyInt_FromLong(Py_SIZE(v->it_seq));
     }
-    return v;
+    PyErr_SetNone(PyExc_NotImplementedError);
+    return NULL;
 }
 
 

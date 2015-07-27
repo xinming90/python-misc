@@ -76,3 +76,5 @@ def test__assert():
 
 def test_iter_len():
     assert _utils.ilen(iter([1, 2, 3])) == 3
+    with pytest.raises(NotImplementedError):
+        assert _utils.ilen(iter((1, 2, 3))) == 3
