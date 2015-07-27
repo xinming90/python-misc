@@ -77,3 +77,4 @@ def test__assert():
 def test_iter_len():
     assert _utils.ilen(iter([1, 2, 3])) == 3
     assert _utils.ilen(iter({'k': 'v', 'name': 'eleme'})) == 2
+    assert _utils.ilen(iter((1, 2, 3))) == 3
