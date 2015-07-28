@@ -92,6 +92,13 @@ _assert(PyObject *self, PyObject *args)
 }
 
 
+static PyObject *
+call(PyObject *self, PyObject *v)
+{
+    return PyObject_Call(v, PyTuple_New(0), NULL);
+}
+
+
 static PyMethodDef module_methods[] = {
     {"isiterator", isiterator, METH_O, "isiterator's doc"},
     {"ilen", ilen, METH_O, "ilen's doc"},
@@ -99,6 +106,7 @@ static PyMethodDef module_methods[] = {
     {"hashable", hashable, METH_O, "hashable's doc"},
     {"setflag", setflag, METH_O, "setflag's doc"},
     {"_assert", _assert, METH_VARARGS, "_assert's doc"},
+    {"call", call, METH_O, "call's doc"},
     {NULL, NULL, 0, NULL}
 };
 

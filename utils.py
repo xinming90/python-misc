@@ -26,3 +26,7 @@ def glen(gen):
             break
         count += 1
     return count
+
+
+def call(func):
+    return func()
