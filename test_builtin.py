@@ -261,3 +261,7 @@ def test_bytearray():
     ip = socket.inet_aton('127.0.0.1')
     assert bytearray(ip)[0] == 127
     assert ord(ip[0]) == 127
+
+
+def test_int():
+    assert int() == 0
