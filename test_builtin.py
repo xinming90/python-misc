@@ -265,3 +265,4 @@ def test_bytearray():
 
 def test_int():
     assert int() == 0
+
