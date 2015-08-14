@@ -99,3 +99,8 @@ def test_dict_iterator_length_hint():
     assert it.__length_hint__() == 1
     it.next()
     assert it.__length_hint__() == 0
+
+
+def test_dict_generator():
+    d = {'k': 'v', 'name': 'eleme'}
+    assert dict((k, v) for k, v in d.iteritems()) == d
