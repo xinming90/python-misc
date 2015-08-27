@@ -9,33 +9,37 @@ now = datetime.datetime.now
 
 class MyCallback(RdbCallback):
     def __init__(self, r):
-        self.redis = r
         self.count = 0
         self.p = r.pipeline(transaction=False)
 
     def set(self, key, value, expiry, info):
-        print "set|{}|{}".format(key, value)
-        self.p.set(key, value)
+        # print "set|{}|{}|".format(key, value, expiry)
+        if expiry:
+            delta = now() - expiry
+            if delta.total_seconds() <= 0:
+                return
+            expiry = delta
+        self.p.set(key, value, expiry)
         self.execute()
 
     def hset(self, key, field, value):
-        print "hset|{}|{}|{}".format(key, field, value)
+        # print "hset|{}|{}|{}".format(key, field, value)
         self.p.hset(key, field, value)
         self.execute()
 
     def sadd(self, key, member):
-        print "sadd|{}|{}".format(key, member)
-        self.redis.sadd(key, member)
+        # print "sadd|{}|{}".format(key, member)
+        self.p.sadd(key, member)
         self.execute()
 
     def rpush(self, key, value) :
-        print "rpush|{}|{}".format(key, value)
-        self.redis.rpush(key, value)
+        # print "rpush|{}|{}".format(key, value)
+        self.p.rpush(key, value)
         self.execute()
 
     def zadd(self, key, score, member):
-        print "zadd|{}|{}|{}".format(key, member, score)
-        self.redis.zadd(key, member, score)
+        # print "zadd|{}|{}|{}".format(key, member, score)
+        self.p.zadd(key, member, score)
         self.execute()
 
     def end_rdb(self):
