@@ -16,7 +16,7 @@ class MyCallback(RdbCallback):
         # print "set|{}|{}|".format(key, value, expiry)
         if expiry:
             delta = now() - expiry
-            if delta.total_seconds() <= 0:
+            if int(delta.total_seconds()) < 1:
                 return
             expiry = delta
         self.p.set(key, value, expiry)
