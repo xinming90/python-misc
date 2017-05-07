@@ -1,7 +1,8 @@
 # -*- coding: utf-8 -*-
 
-import cPickle as pickle
+import pickle
 import decimal
+
 
 def test_pickle_decimal():
     d = {'name': 'eleme', 'k': decimal.Decimal(1)}

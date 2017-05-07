@@ -7,6 +7,8 @@ typedef struct {
 } seqiterobject;
 
 
+#define PyUnicodeIter_CheckExact(op) (Py_TYPE(op) == &PyUnicodeIter_Type)
+
 
 
 /*********************** List Iterator **************************/

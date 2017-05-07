@@ -10,7 +10,7 @@ def test_pytest_raises():
     pytest.raises(ValueError, f)
     with pytest.raises(ValueError) as e:
         f()
-    assert e.value.message == 'f'
+    assert e.value.args[0] == 'f'
 
 
 def test_pytest_raises_regexp():

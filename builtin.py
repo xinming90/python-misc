@@ -100,8 +100,8 @@ class bool(int):
         if x is None:
             return False
 
-        if hasattr(x, '__nonzero__'):
-            return x.__nonzero__()
+        if hasattr(x, '__bool__'):
+            return x.__bool__()
 
         if hasattr(x, '__len__'):
             return x.__len__()

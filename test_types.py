@@ -3,6 +3,7 @@
 import types
 import _types
 
+
 def test_function_type():
     def f():
         pass
@@ -20,8 +21,8 @@ def test_lambda_type():
 def test_code_type():
     def f():
         pass
-    assert type(f.func_code) is types.CodeType
-    assert type(f.func_code) is _types.CodeType
+    assert type(f.__code__) is types.CodeType
+    assert type(f.__code__) is _types.CodeType
 
 
 def test_generator_type():
@@ -31,23 +32,6 @@ def test_generator_type():
     assert type(g()) is _types.GeneratorType
 
 
-def test_class_type():
-    class C:
-        pass
-    assert type(C) is types.ClassType
-    assert type(C) is _types.ClassType
-
-
 def test_module_type():
     assert type(types) is types.ModuleType
     assert type(types) is _types.ModuleType
-
-
-def test_type_type():
-    assert type(type) is types.TypeType
-    assert type(type) is _types.TypeType
-
-
-def test_dict_proxy_type():
-    assert type(type.__dict__) is types.DictProxyType
-    assert type(type.__dict__) is _types.DictProxyType

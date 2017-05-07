@@ -1,19 +1,33 @@
 #include "Python.h"
 
-static PyObject *
+static PyObject*
 hello_world(void) {
-    return PyString_FromString("hello world");
+    return PyUnicode_FromString("hello world");
 }
 
 
-static PyMethodDef HelloMethods[] = {
-    {"world", hello_world, METH_NOARGS, "hello world's doc"},
+static PyMethodDef module_methods[] = {
+    {
+        "world",
+        (PyCFunction)hello_world,
+        METH_NOARGS,
+        "hello world's doc"
+    },
     {NULL, NULL, 0, NULL}
 };
 
 
+static struct PyModuleDef module = {
+   PyModuleDef_HEAD_INIT,
+   "hello",
+   "a Python module",
+   -1,
+   module_methods,
+};
+
+
 PyMODINIT_FUNC
-inithello(void)
+PyInit_hello(void)
 {
-    PyObject *m = Py_InitModule("hello", HelloMethods);
+    return PyModule_Create(&module);
 }

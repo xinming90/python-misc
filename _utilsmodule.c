@@ -16,21 +16,21 @@ isiterator(PyObject *self, PyObject *v)
 static PyObject *
 ilen(PyObject *self, PyObject *v)
 {
-    if (PySeqIter_Check(v)) {
+    if (PyUnicodeIter_CheckExact(v)) {
         seqiterobject *it = (seqiterobject *) v;
-        return PyInt_FromLong(PySequence_Size(it->it_seq));
+        return PyLong_FromLong(PySequence_Size(it->it_seq));
     }
     if (PyListIter_CheckExact(v)) {
         listiterobject *it = (listiterobject *) v;
-        return PyInt_FromLong(Py_SIZE(it->it_seq));
+        return PyLong_FromLong(Py_SIZE(it->it_seq));
     }
     if (PyTupleIter_CheckExact(v)) {
         tupleiterobject *it = (tupleiterobject *) v;
-        return PyInt_FromLong(Py_SIZE(it->it_seq));
+        return PyLong_FromLong(Py_SIZE(it->it_seq));
     }
     if (PyDictIterKey_CheckExact(v)) {
         dictiterobject *it = (dictiterobject *) v;
-        return PyInt_FromLong(PyDict_Size(it->di_dict));
+        return PyLong_FromLong(PyDict_Size((PyObject *)it->di_dict));
     }
     PyErr_SetNone(PyExc_NotImplementedError);
     return NULL;
@@ -45,11 +45,11 @@ glen(PyObject *self, PyObject *v)
         return NULL;
     }
     int i = 0;
-    PyGenObject *gen = v;
-    while (GEN_NEXT(gen) != NULL) {
+    PyGenObject *gen = (PyGenObject *)v;
+    while (GEN_NEXT((PyObject *)gen) != NULL) {
         i++;
     }
-    return PyInt_FromLong(i);
+    return PyLong_FromLong(i);
 }
 
 
@@ -111,8 +111,18 @@ static PyMethodDef module_methods[] = {
 };
 
 
+static struct PyModuleDef module = {
+   PyModuleDef_HEAD_INIT,
+   "_utils",
+   "a Python module",
+   -1,
+   module_methods,
+};
+
+
+
 PyMODINIT_FUNC
-init_utils(void)
+PyInit__utils(void)
 {
-    PyObject *m = Py_InitModule("_utils", module_methods);
+    return PyModule_Create(&module);
 }

@@ -11,9 +11,9 @@ def test_listiterator_len():
 def test_listiterator_length_hint():
     it = iter([1, 2, 3])
     assert it.__length_hint__() == 3
-    it.next()
+    next(it)
     assert it.__length_hint__() == 2
-    it.next()
+    next(it)
     assert it.__length_hint__() == 1
-    it.next()
+    next(it)
     assert it.__length_hint__() == 0

@@ -1,13 +1,7 @@
-os:
-  - linux
-
-env:
-  - ARCH="i686"
-
 language: python
 
 python:
-  - "2.7"
+  - "3.6"
 
 # command to install dependencies
 install:

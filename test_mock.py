@@ -1,7 +1,8 @@
 # -*- coding: utf-8 -*-
 
-import mock
 import os
+
+from unittest import mock
 
 
 def test_mock_patch_object():
@@ -16,8 +17,6 @@ def test_mock_assert_has_calls():
     m = mock.Mock()
     m(1)
     m(2)
-    m.assert_has_calls(mock.call(1))
-    m.assert_has_calls(mock.call(2))
     m.assert_has_calls([mock.call(1), mock.call(2)])
 
 

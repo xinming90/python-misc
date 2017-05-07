@@ -21,8 +21,8 @@ class Bool(int):
         if x is None:
             return false
 
-        if hasattr(x, '__nonzero__'):
-            if x.__nonzero__() is True:
+        if hasattr(x, '__bool__'):
+            if x.__bool__() is True:
                 return true
             return false
 

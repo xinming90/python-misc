@@ -1,7 +1,8 @@
 # -*- coding: utf-8 -*-
 
+
 def filter_dict(f, d):
-    return {k: v for k, v in d.iteritems() if f(k, v)}
+    return {k: v for k, v in d.items() if f(k, v)}
 
 
 def isiterator(it):
@@ -21,7 +22,7 @@ def glen(gen):
     count = 0
     while True:
         try:
-            gen.next()
+            next(gen)
         except StopIteration:
             break
         count += 1

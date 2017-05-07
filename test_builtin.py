@@ -5,10 +5,10 @@ import builtin
 
 
 def test_filter():
-    assert filter(None, [1, 0, 2]) == [1, 2]
+    assert list(filter(None, [1, 0, 2])) == [1, 2]
     assert builtin.filter(None, [1, 0, 2]) == [1, 2]
 
-    assert filter(bool, [1, 0, 2]) == [1, 2]
+    assert list(filter(bool, [1, 0, 2])) == [1, 2]
     assert builtin.filter(bool, [1, 0, 2]) == [1, 2]
 
 
@@ -39,7 +39,7 @@ def test_bool():
     assert bool(c) is True
     assert builtin.bool(c) is True
 
-    C = type('C', (object,), {'__nonzero__': lambda self: False})
+    C = type('C', (object,), {'__bool__': lambda self: False})
     c = C()
     assert bool(c) is False
     assert builtin.bool(c) is False
@@ -50,7 +50,7 @@ def test_bool():
     assert builtin.bool(c) is False
 
     # nonzero win
-    C = type('C', (object,), {'__nonzero__': lambda self: False,
+    C = type('C', (object,), {'__bool__': lambda self: False,
                               '__len__': lambda self: True})
     c = C()
     assert bool(c) is False
@@ -245,22 +245,22 @@ def test_callable():
 def test_assert():
     with pytest.raises(AssertionError) as e:
         assert False
-    assert e.value.msg == 'assert False'
+    assert e.value.args[0] == 'assert False'
 
     with pytest.raises(AssertionError) as e:
         assert False, 'I am assert'
-    assert e.value.msg == 'I am assert\nassert False'
+    assert e.value.args[0] == 'I am assert\nassert False'
 
     with pytest.raises(AssertionError) as e:
         assert False, ValueError('I am assert')
-    assert e.value.msg == "ValueError('I am assert',)\nassert False"
+    assert e.value.args[0] == "ValueError('I am assert',)\nassert False"
 
 
 def test_bytearray():
     import socket
     ip = socket.inet_aton('127.0.0.1')
     assert bytearray(ip)[0] == 127
-    assert ord(ip[0]) == 127
+    assert ip[0] == 127
 
 
 def test_int():

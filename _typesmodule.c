@@ -1,16 +1,28 @@
 #include "Python.h"
 
+static PyMethodDef module_methods[] = {
+    {NULL, NULL, 0, NULL}
+};
+
+
+static struct PyModuleDef module = {
+    PyModuleDef_HEAD_INIT,
+    "_types",
+    "a Python module",
+    -1,
+    module_methods,
+};
+
+
 PyMODINIT_FUNC
-init_types(void)
+PyInit__types(void)
 {
     PyObject *m;
-    m = Py_InitModule("_types", NULL);
-    PyModule_AddObject(m, "FunctionType", &PyFunction_Type);
-    PyModule_AddObject(m, "LambdaType", &PyFunction_Type);
-    PyModule_AddObject(m, "CodeType", &PyCode_Type);
-    PyModule_AddObject(m, "GeneratorType", &PyGen_Type);
-    PyModule_AddObject(m, "ClassType", &PyClass_Type);
-    PyModule_AddObject(m, "ModuleType", &PyModule_Type);
-    PyModule_AddObject(m, "TypeType", &PyType_Type);
-    PyModule_AddObject(m, "DictProxyType", &PyDictProxy_Type);
+    m = PyModule_Create(&module);
+    PyModule_AddObject(m, "FunctionType", (PyObject *)&PyFunction_Type);
+    PyModule_AddObject(m, "LambdaType", (PyObject *)&PyFunction_Type);
+    PyModule_AddObject(m, "CodeType", (PyObject *)&PyCode_Type);
+    PyModule_AddObject(m, "GeneratorType", (PyObject *)&PyGen_Type);
+    PyModule_AddObject(m, "ModuleType", (PyObject *)&PyModule_Type);
+    return m;
 }

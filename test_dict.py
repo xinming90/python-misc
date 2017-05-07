@@ -2,6 +2,7 @@
 
 import pytest
 
+
 def test_dict_in():
     class D(dict):
         id = 10
@@ -21,7 +22,7 @@ def test_dict_values():
     d = D()
     d['name'] = 'eleme'
     assert d.values() is False
-    assert dict.values(d) == ['eleme']
+    assert list(dict.values(d)) == ['eleme']
 
 
 def test_dict_clear():
@@ -47,13 +48,13 @@ def test_dict_update():
             pass
 
     d = D()
-    assert d.keys() == []
+    assert list(d.keys()) == []
 
     d.update(name='eleme')
-    assert d.keys() == []
+    assert list(d.keys()) == []
 
     dict.update(d, name='eleme')
-    assert d.items()[0] == ('name', 'eleme')
+    assert list(d.items())[0] == ('name', 'eleme')
 
 
 def test_dict_dict():
@@ -95,12 +96,12 @@ def test_dict_getitem():
 def test_dict_iterator_length_hint():
     it = iter({'k': 'v', 'name': 'eleme'})
     assert it.__length_hint__() == 2
-    it.next()
+    next(it)
     assert it.__length_hint__() == 1
-    it.next()
+    next(it)
     assert it.__length_hint__() == 0
 
 
 def test_dict_generator():
     d = {'k': 'v', 'name': 'eleme'}
-    assert dict((k, v) for k, v in d.iteritems()) == d
+    assert dict((k, v) for k, v in d.items()) == d
