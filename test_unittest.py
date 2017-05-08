@@ -5,7 +5,7 @@ import inspect
 
 
 class MyTest(unittest.TestCase):
-    def runTest(self):
+    def runTest(self): # noqa
         for name, method in inspect.getmembers(self, inspect.ismethod):
             if name.startswith('test_'):
                 method()

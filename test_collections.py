@@ -34,7 +34,7 @@ def test_defaultdict_list():
     assert f1(names) == f2(names)
 
 
-def test_OrderedDict():
+def test_OrderedDict(): # noqa
     d = {}
     d[5] = 5
     d[0] = 0
@@ -49,7 +49,7 @@ def test_OrderedDict():
     assert list(od.keys()) == [5, 0]
 
 
-def test_ChainMap():
+def test_ChainMap(): # noqa
     defaults = {'color': 'red', 'user': 'guest'}
     environ = {'user': 'ming', 'age': 26}
     kwargs = {'age': 27, 'sex': 'M'}

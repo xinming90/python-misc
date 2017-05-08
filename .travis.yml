@@ -9,4 +9,6 @@ install:
   - "pip install pytest-raisesregexp"
 
 # command to run tests
-script: make
+script:
+  - flake8
+  - make

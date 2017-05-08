@@ -3,7 +3,7 @@
 import functools
 
 
-def filter(function_or_none, sequence): # known special case of filter
+def filter(function_or_none, sequence):  # known special case of filter
     """
     filter(function or None, sequence) -> list, tuple, or string
 
@@ -19,7 +19,7 @@ def filter(function_or_none, sequence): # known special case of filter
 def any(iterable):
     """
     any(iterable) -> bool
-    
+
     Return True if bool(x) is True for any x in the iterable.
     If the iterable is empty, return False.
     """
@@ -82,7 +82,7 @@ def setattr(object, name, value):
     object.__setattr__(name, value)
 
 
-class bool(int):
+class bool(int): # noqa
     """
     bool(x) -> bool
 
@@ -109,7 +109,7 @@ class bool(int):
         return True
 
 
-class staticmethod(object):
+class staticmethod(object): # noqa
     """
     staticmethod(function) -> method
 
@@ -134,6 +134,7 @@ class staticmethod(object):
     def __get__(self, obj, type=None):
         return self.function
 
+
 """ implement in func
 def staticmethod(function):
     class C(object):
@@ -143,7 +144,7 @@ def staticmethod(function):
 """
 
 
-class classmethod(object):
+class classmethod(object): # noqa
     """
     classmethod(function) -> method
 
@@ -181,7 +182,7 @@ def classmethod(function):
 """
 
 
-class property(object):
+class property(object): # noqa
     """
     property(fget=None, fset=None, fdel=None, doc=None) -> property attribute
 

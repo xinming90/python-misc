@@ -4,6 +4,7 @@
 import contextlib
 import pytest
 
+
 def test_with_return():
     @contextlib.contextmanager
     def ctx():

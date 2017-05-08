@@ -2,6 +2,7 @@
 
 import pytest
 
+
 def test_test():
     class C(object):
         def f(self):

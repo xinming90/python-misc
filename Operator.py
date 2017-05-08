@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 
+
 def add(a, b):
     """ add(a, b) -- Same as a + b. """
     if hasattr(a, '__add__'):
@@ -12,4 +13,3 @@ def iadd(a, b):
         return a.__iadd__(b)
     if hasattr(a, '__add__'):
         return a.__add__(b)
-

@@ -18,5 +18,5 @@ def test_pytest_raises_regexp():
         raise ValueError('f')
 
     pytest.raises_regexp(ValueError, 'f', f)
-    with pytest.raises_regexp(ValueError, 'f') as e:
+    with pytest.raises_regexp(ValueError, 'f'):
         f()

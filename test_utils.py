@@ -20,7 +20,7 @@ def test_filter_dict():
 
     assert utils.filter_dict(f, d) == {'name': 'eleme'}
 
-    f = lambda k, v: not k.startswith('_')
+    f = lambda k, v: not k.startswith('_') # noqa
     assert utils.filter_dict(f, d) == {'name': 'eleme'}
 
 

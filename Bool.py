@@ -3,6 +3,7 @@
 false = None
 true = None
 
+
 class Bool(int):
     def __new__(cls, x):
         global true, false
@@ -32,7 +33,6 @@ class Bool(int):
             return false
 
         return true
-
 
     def __str__(self):
         if self.real == 1:

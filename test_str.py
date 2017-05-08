@@ -2,6 +2,7 @@
 
 import pytest
 
+
 def test_str_join():
     s = ' '
     assert s.join(['a', 'b']) == 'a b'

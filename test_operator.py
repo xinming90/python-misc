@@ -3,6 +3,7 @@
 import operator
 import Operator
 
+
 def test_iadd():
     class C(object):
         def __add__(self, other):
@@ -26,7 +27,7 @@ def test_iadd():
     assert operator.iadd(c, 5) == "__add__"
     assert Operator.iadd(c, 5) == '__add__'
 
-    
+
 def test_list_add_iadd_diff():
     l2 = l1 = l = [1, 2]
     l1 = l1 + [3, 4]

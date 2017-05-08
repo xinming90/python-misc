@@ -13,15 +13,15 @@ def test_filter():
 
 
 def test_any():
-    assert any([1, 0, 2]) == True
-    assert builtin.any([1, 0, 2]) == True
+    assert any([1, 0, 2]) is True
+    assert builtin.any([1, 0, 2]) is True
 
 
 def test_all():
-    assert all([1, 0, 2]) == False
-    assert builtin.all([1, 0, 2]) == False
-    assert all([]) == True
-    assert builtin.all([]) == True
+    assert all([1, 0, 2]) is False
+    assert builtin.all([1, 0, 2]) is False
+    assert all([]) is True
+    assert builtin.all([]) is True
 
 
 def test_bool():
@@ -34,23 +34,23 @@ def test_bool():
     assert bool(None) is False
     assert builtin.bool(None) is False
 
-    C = type('C', (object,), {})
+    C = type('C', (object,), {}) # noqa
     c = C()
     assert bool(c) is True
     assert builtin.bool(c) is True
 
-    C = type('C', (object,), {'__bool__': lambda self: False})
+    C = type('C', (object,), {'__bool__': lambda self: False}) # noqa
     c = C()
     assert bool(c) is False
     assert builtin.bool(c) is False
 
-    C = type('C', (object,), {'__len__': lambda self: False})
+    C = type('C', (object,), {'__len__': lambda self: False}) # noqa
     c = C()
     assert bool(c) is False
     assert builtin.bool(c) is False
 
     # nonzero win
-    C = type('C', (object,), {'__bool__': lambda self: False,
+    C = type('C', (object,), {'__bool__': lambda self: False, # noqa
                               '__len__': lambda self: True})
     c = C()
     assert bool(c) is False
@@ -58,7 +58,7 @@ def test_bool():
 
 
 def test_hasattr():
-    C = type('C', (object,), {'name': 'C'})
+    C = type('C', (object,), {'name': 'C'}) # noqa
     c = C()
     assert hasattr(c, 'name') is True
     assert hasattr(c, 'tname') is False
@@ -67,7 +67,7 @@ def test_hasattr():
 
 
 def test_getattr():
-    C = type('C', (object,), {'name': 'C'})
+    C = type('C', (object,), {'name': 'C'}) # noqa
     c = C()
     assert getattr(c, 'name') == 'C'
     with pytest.raises(AttributeError):
@@ -124,20 +124,22 @@ def test_staticmethod():
     assert C().f() == 'f'
 
 
-
 def test_classmethod():
     class C(object):
         n = 10
+
         @classmethod
         def f(cls):
             return cls.n
+
     assert C.f() == 10
     assert C().f() == 10
 
     class C(object):
         n = 10
+
         @builtin.classmethod
-        def f(cls):
+        def f(cls): # noqa
             return cls.n
     assert C.f() == 10
     assert C().f() == 10
@@ -161,7 +163,6 @@ def test_property():
     del c.x
     with pytest.raises(AttributeError):
         c.x
-
 
     class C(object):
         def getx(self):
@@ -202,7 +203,6 @@ def test_property_decorator():
     del c.x
     with pytest.raises(AttributeError):
         c.x
-
 
     class C(object):
         @builtin.property
@@ -265,4 +265,3 @@ def test_bytearray():
 
 def test_int():
     assert int() == 0
-

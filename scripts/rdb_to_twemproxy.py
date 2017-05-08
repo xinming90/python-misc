@@ -32,7 +32,7 @@ class MyCallback(RdbCallback):
         self.p.sadd(key, member)
         self.execute()
 
-    def rpush(self, key, value) :
+    def rpush(self, key, value):
         # print "rpush|{}|{}".format(key, value)
         self.p.rpush(key, value)
         self.execute()
@@ -54,6 +54,6 @@ class MyCallback(RdbCallback):
 r = redis.Redis.from_url("redis://127.0.0.1:6400")
 callback = MyCallback(r)
 parser = RdbParser(callback, filters={"dbs": [0]})
-print "start {}".format(now())
+print("start {}".format(now()))
 parser.parse("/home/xinming.pan/dump.rdb")
-print "stop {}".format(now())
+print("stop {}".format(now()))

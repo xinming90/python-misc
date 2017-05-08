@@ -9,7 +9,7 @@ import StringIO
 
 
 def unpatch_gevent_all():
-    do_nothing = lambda *args, **kwds: None
+    do_nothing = lambda *args, **kwds: None # noqa
     import gevent.monkey
     setattr(gevent.monkey, 'patch_all', do_nothing)
     setattr(gevent.monkey, 'patch_os', do_nothing)
@@ -20,6 +20,7 @@ def unpatch_gevent_all():
     setattr(gevent.monkey, 'patch_select', do_nothing)
     setattr(gevent.monkey, 'patch_ssl', do_nothing)
     setattr(gevent.monkey, 'patch_subprocess', do_nothing)
+
 
 unpatch_gevent_all()
 
@@ -35,8 +36,8 @@ def profile(sort_by="cumulative"):
     stop = time.time()
     s = StringIO.StringIO()
     pstats.Stats(p, stream=s).sort_stats(sort_by).print_stats()
-    print s.getvalue()
-    print "now = {}\n|{}ms".format(now, (stop - start) * 1000)
+    print(s.getvalue())
+    print("now = {}\n|{}ms".format(now, (stop - start) * 1000))
 
 
 with profile("time"):
