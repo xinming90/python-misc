@@ -3,18 +3,19 @@
 import collections
 
 
-def test_collections_defaultdict():
+def test_defaultdict_int():
     d = collections.defaultdict(int)
     assert dict(d) == {}
     d['name']
     assert dict(d) == {'name': 0}
 
 
-def test_collections_defaultdict_list():
+def test_defaultdict_list():
     names = [
         'raymond', 'rachel', 'matthew', 'roger',
         'betty', 'melissa', 'judith', 'charlie',
     ]
+
     def f1(names):
         d = {}
         for name in names:
@@ -25,6 +26,7 @@ def test_collections_defaultdict_list():
         return d
 
     def f2(names):
+        d = {}
         d = collections.defaultdict(list)
         for name in names:
             d[len(name)].append(name)
