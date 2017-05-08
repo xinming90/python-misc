@@ -26,7 +26,6 @@ def test_defaultdict_list():
         return d
 
     def f2(names):
-        d = {}
         d = collections.defaultdict(list)
         for name in names:
             d[len(name)].append(name)
@@ -48,3 +47,15 @@ def test_OrderedDict():
 
     od[5] = 15
     assert list(od.keys()) == [5, 0]
+
+
+def test_ChainMap():
+    defaults = {'color': 'red', 'user': 'guest'}
+    environ = {'user': 'ming', 'age': 26}
+    kwargs = {'age': 27, 'sex': 'M'}
+    assert collections.ChainMap(kwargs, environ, defaults) == {
+        'color': 'red',
+        'user': 'ming',
+        'age': 27,
+        'sex': 'M',
+    }
