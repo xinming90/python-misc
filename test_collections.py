@@ -59,3 +59,17 @@ def test_ChainMap(): # noqa
         'age': 27,
         'sex': 'M',
     }
+
+
+def test_namedtuple():
+    TestResults = collections.namedtuple(
+        'TestResults',
+        ['failed', 'attempted']
+    )
+
+    def f():
+        return TestResults(0, 4)
+
+    rv = f()
+    assert rv == (0, 4)
+    assert rv.failed == 0 and rv.attempted == 4
