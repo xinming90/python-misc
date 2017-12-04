@@ -44,6 +44,14 @@ def test_yield_from_list():
         yield from [1, 2]
 
     g = gen()
-    it = iter(g)
-    assert next(it) == 1
-    assert next(it) == 2
+    assert next(g) == 1
+    assert next(g) == 2
+
+
+def test_yield_from_iterator():
+    def gen():
+        yield from iter([1, 2])
+
+    g = gen()
+    assert next(g) == 1
+    assert next(g) == 2
