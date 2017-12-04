@@ -37,3 +37,13 @@ def test_generator_return():
     with pytest.raises(StopIteration) as e:
         assert next(g)
     assert e.value.value == 2
+
+
+def test_yield_from_list():
+    def gen():
+        yield from [1, 2]
+
+    g = gen()
+    it = iter(g)
+    assert next(it) == 1
+    assert next(it) == 2
