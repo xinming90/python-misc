@@ -16,3 +16,12 @@ def test_isgeneratorfunction():
         yield 1
 
     assert gen.__code__.co_flags & CO_GENERATOR
+
+
+def test_generator_iterator():
+    def gen():
+        yield 1
+
+    g = gen()
+    it = iter(g)
+    assert it is g
