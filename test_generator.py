@@ -25,3 +25,15 @@ def test_generator_iterator():
     g = gen()
     it = iter(g)
     assert it is g
+
+
+def test_generator_return():
+    def gen():
+        yield 1
+        return 2
+
+    g = gen()
+    assert next(g) == 1
+    with pytest.raises(StopIteration) as e:
+        assert next(g)
+    assert e.value.value == 2
