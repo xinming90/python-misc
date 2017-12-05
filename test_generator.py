@@ -55,3 +55,21 @@ def test_yield_from_iterator():
     g = gen()
     assert next(g) == 1
     assert next(g) == 2
+
+
+def test_yield_from_return():
+    def gen_return():
+        yield 1
+        return 2
+
+    def gen():
+        rv = yield from gen_return()
+        return rv * 2
+
+    g = gen()
+    assert next(g) == 1
+
+    try:
+        next(g)
+    except StopIteration as e:
+        assert e.value == 2 * 2
