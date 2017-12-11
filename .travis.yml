@@ -5,11 +5,11 @@ python:
 
 # command to install dependencies
 install:
-  - "pip install flake8"
-  - "pip install pytest"
-  - "pip install pytest-raisesregexp"
+  - pip install pipenv
+  - pipenv install
+  - make
 
 # command to run tests
 script:
-  - flake8
-  - make
+  - pipenv run flake8
+  - pipenv run pytest -sv
