@@ -29,3 +29,14 @@ def test_next_coroutine():
     c = coro()
     with pytest.raises(TypeError):
         next(c)
+
+
+def test_coroutine_send():
+    async def coro():
+        return 'coro'
+
+    c = coro()
+    try:
+        c.send(None)
+    except StopIteration as e:
+        assert e.value == 'coro'
