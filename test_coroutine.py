@@ -1,9 +1,11 @@
 # -*- coding: utf-8 -*-
 
+import inspect
 import pytest
 
 
 CO_COROUTINE = 0x0080
+CO_ITERABLE_COROUTINE = 0x0100
 
 
 def test_iscoroutinefunction():
@@ -40,3 +42,10 @@ def test_coroutine_send():
         c.send(None)
     except StopIteration as e:
         assert e.value == 'coro'
+
+
+def test_coroutine_awaitable():
+    async def coro():
+        pass
+
+    assert inspect.isawaitable(coro())
