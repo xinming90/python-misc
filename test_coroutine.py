@@ -20,3 +20,12 @@ def test_iter_coroutine():
     c = coro()
     with pytest.raises(TypeError):
         iter(c)
+
+
+def test_next_coroutine():
+    async def coro():
+        pass
+
+    c = coro()
+    with pytest.raises(TypeError):
+        next(c)
