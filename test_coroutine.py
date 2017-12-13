@@ -2,6 +2,7 @@
 
 import inspect
 import pytest
+from types import coroutine
 
 
 CO_COROUTINE = 0x0080
@@ -49,3 +50,13 @@ def test_coroutine_awaitable():
         pass
 
     assert inspect.isawaitable(coro())
+
+
+def test_convert_generator_to_coroutine():
+    def gen():
+        yield 100
+
+    assert not inspect.isawaitable(gen())
+
+    coroutine(gen)
+    assert inspect.isawaitable(gen())
